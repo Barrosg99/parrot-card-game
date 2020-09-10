@@ -13,16 +13,31 @@ function montarJogo()
         main.style.maxWidth = ("calc("+n/2+"*135px + 134px)");
     else
         main.style.maxWidth = ("calc("+n+"*135px + 134px)");
-    var novaDiv = [] ;
+    var novaDiv ;
     while(i<n)
     {
-        novaDiv.push(document.createElement("div"));
-        main.appendChild(novaDiv[i]);
+        novaDiv = (document.createElement("div"));
+        main.appendChild(novaDiv);
         var div = document.querySelector("div:nth-child("+(i+1)+")");
-        div.classList.add("carta-tras");
-        div.innerHTML = "<img src='imagens/front.png' alt='papagaio'></img>"
+        div.classList.add("carta");
         i++; 
     }    
 }
+function DistribCartas()
+{
+    var i=0;
+    var novaDiv;
+    while(i<n)
+    {
+        novaDiv = document.createElement("div");
+        var viraCarta = document.querySelector("main > div:nth-child("+(i+1)+")");
+        viraCarta.appendChild(novaDiv);
+        var div = document.querySelector(" main > div:nth-child("+(i+1)+") div:first-child ");
+        div.classList.add("carta-tras");
+        div.innerHTML = "<img src='imagens/front.png' alt='papagaio'></img>";
+        i++;
+    }
+}
 nDeCartas();
 montarJogo();
+DistribCartas();

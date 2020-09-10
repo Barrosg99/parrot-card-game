@@ -3,8 +3,30 @@ body
     font-family: 'Roboto', sans-serif;
     background-color: #effabf;
 }
+header
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18vh;
+}
 h1
 {
     color: #7ab08e;
     font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+}
+main
+{
+    width: 100vw;
+    height: 82vh;
+    display: flex;
+}
+.carta-tras
+{
+    background-color: black;
+    width: 30vw;
+    height: 40vh;
+    margin: 5%;
 }

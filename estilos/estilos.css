@@ -2,6 +2,10 @@ body
 {
     font-family: 'Roboto', sans-serif;
     background-color: #effabf;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 header
 {
@@ -19,14 +23,39 @@ h1
 }
 main
 {
-    width: 100vw;
-    height: 82vh;
+    width: calc(7*135px + 134px);
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;    
 }
 .carta-tras
 {
-    background-color: black;
-    width: 30vw;
-    height: 40vh;
-    margin: 5%;
+    background-color: #A7E9AF;
+    width: 135px;
+    height: 190px;
+    flex-shrink: 0;
+    border-radius: 5%;   
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+img
+{
+    width: 110px;
+}
+@media (max-width: 1080px)
+{
+    main
+    {
+        width: auto;
+    }
+}
+@media (max-width:420px)
+{
+    main
+    {
+        width: 10%;
+    }
 }

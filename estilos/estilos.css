@@ -33,22 +33,40 @@ main
 {
     width: 135px;
     height: 190px;
-    flex-shrink: 0;
-    border-radius: 5%;   
+    flex-shrink: 0;  
     margin-top: 35px;
-    position: relative;
-    background-color: white;
+    position: relative;    
 }
-.carta-tras
+.verso
 {
-    background-color: #A7E9AF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100%;
     border-radius: 5%;   
     position: absolute; 
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: all .5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+}
+.carta-tras
+{
+    background-color: #A7E9AF;    
+}
+.carta-tras-virada
+{
+    transform: rotateY(-180deg);
+}
+.carta-frente
+{
+    background-color: black;
+    transform: rotateY(180deg); 
+}
+.carta-frente-virada
+{
+    transform: rotateY(0deg);
 }
 img
 {

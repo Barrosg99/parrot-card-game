@@ -12,7 +12,7 @@ function montarJogo()
     if(n>7)
         main.style.maxWidth = ("calc("+n/2+"*135px + 134px)");
     else
-        main.style.maxWidth = ("calc("+n+"*135px + 134px)");
+        main.style.width = ("96%");
     var novaDiv ;
     while(i<n)
     {
@@ -23,7 +23,7 @@ function montarJogo()
         i++; 
     }    
 }
-function DistribCartas()
+function DistribCartasTras()
 {
     var i=0;
     var novaDiv;
@@ -38,6 +38,7 @@ function DistribCartas()
         i++;
     }
 }
+
 nDeCartas();
 montarJogo();
-DistribCartas();
+DistribCartasTras();

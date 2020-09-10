@@ -18,12 +18,11 @@ h1
 {
     color: #7ab08e;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 42px;
     text-align: center;
 }
 main
 {
-    width: calc(7*135px + 134px);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -67,5 +66,6 @@ img
     main
     {
         width: 10%;
+        max-width: 10%;
     }
 }

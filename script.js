@@ -41,7 +41,7 @@ function DistribCartasTras()
         i++;
     }
 }
-function CartasAleat()
+function DistribCartasFrente()
 {
     var i=0;
     var novaDiv;
@@ -59,8 +59,10 @@ function CartasAleat()
 }
 function viraCarta(elemento)
 {
-    elemento.classList.add("carta-tras-virada");
-    //elemento.classList.add("carta-frente-virada");
+    var cartaTras = elemento.children[0];
+    var cartaFrente = elemento.children[1];
+    cartaTras.classList.toggle("carta-tras-virada");
+    cartaFrente.classList.toggle("carta-frente-virada");
 }
 function embaralha()
 {
@@ -68,7 +70,6 @@ function embaralha()
 }
 function papagaioAleatorio()
 {
-    
     var i = 0;
     var String = ['bobrossparrot.gif','explodyparrot.gif','fiestaparrot.gif','metalparrot.gif','revertitparrot.gif','tripletsparrot.gif','unicornparrot.gif'];
     
@@ -101,4 +102,4 @@ nDeCartas();
 montarJogo();
 DistribCartasTras();
 papagaioAleatorio();
-CartasAleat();
+DistribCartasFrente();

@@ -50,18 +50,19 @@ main
     justify-content: center;
     align-items: center;
     box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    background-color: #A7E9AF; 
 }
-.carta-tras
+/*.carta-tras
 {
-    background-color: #A7E9AF;    
-}
+       
+}*/
 .carta-tras-virada
 {
     transform: rotateY(-180deg);
 }
 .carta-frente
 {
-    background-color: black;
+    
     transform: rotateY(180deg); 
 }
 .carta-frente-virada

@@ -7,6 +7,7 @@ var cartaFrente;
 var trancaMesa = true;
 var contaJogadas = 0;
 var contaAcertos = 0;
+var recomeça = "sim";
 function nDeCartas()        //função que pega o numero de cartas pelo prompt
 {
     while(n%2!=0 || n<4 || n>14)
@@ -75,8 +76,7 @@ function viraCarta(elemento)    //funçao que vira a carta clicada uma vez que a
             cartaTras.classList.toggle("carta-tras-virada");
             cartaFrente.classList.toggle("carta-frente-virada");
         }
-    }
-        
+    }        
 }
 function embaralha() //função pra embaralhar os arrays
 {
@@ -115,7 +115,6 @@ function verificaCarta(elemento)    //função que verifica se a carta ja está 
     cartaFrente = elemento.children[1];
     if(cartaTras.classList.contains("carta-tras-virada"))
     {
-        console.log("nao clica na msm carta animal")
         anterior = cartaFrente;
         return false;
     }
@@ -123,7 +122,6 @@ function verificaCarta(elemento)    //função que verifica se a carta ja está 
     {
         if(anterior.innerHTML===cartaFrente.innerHTML)
         {
-            console.log("entao vc achou o par? brabo")
             anterior.parentElement.removeAttribute("onclick");
             elemento.removeAttribute("onclick");
             anterior = document.querySelector("main");
@@ -137,13 +135,11 @@ function verificaCarta(elemento)    //função que verifica se a carta ja está 
             cartaFrente.classList.toggle("carta-frente-virada");
             setTimeout(esperar1seg, 1000);
             trancaMesa = false;
-            console.log("nao achou, lixo")
             return false;
         }
     }
     else
     {
-        console.log("outros casos")
         anterior = cartaFrente;
         jogadas();
         return true;
@@ -157,7 +153,6 @@ function esperar1seg() //função que espera 1 seg pra desvirar as cartas
     anteriorAtras.classList.toggle("carta-tras-virada")
     anterior.classList.toggle("carta-frente-virada")
     anterior = document.querySelector("main");
-    console.log("pera ae corno");
     trancaMesa = true;
     jogadas();
 }
@@ -172,9 +167,31 @@ function jogadas() //funçao que manda um alerta mostrando quantas jogadas foram
 function alerta()   //alerta pra entrar no setTimeout da função jogadas()
 {
     alert("Você ganhou em "+contaJogadas/2+" jogadas!");
+    recomeça = prompt("Você quer jogar novamente?");
+    recomeçar();
 }
-nDeCartas(); //pega o numero de cartas
-montarJogo(); //seta a mesa pra inserir as cartas
-DistribCartasTras(); // insere as cartas de tras com papagaio.jpg
-papagaioAleatorio(); // cria a string com os papagaios de forma randômica
-DistribCartasFrente(); //insere a parte da frente da carta com os papagaios.gif
+function executaJogo()
+{
+    nDeCartas(); //pega o numero de cartas
+    montarJogo(); //seta a mesa pra inserir as cartas
+    DistribCartasTras(); // insere as cartas de tras com papagaio.jpg
+    papagaioAleatorio(); // cria a string com os papagaios de forma randômica
+    DistribCartasFrente(); //insere a parte da frente da carta com os papagaios.gif
+}
+function reiniciarJogo()
+{
+    main.innerHTML = "";
+    contaJogadas = 0;
+    contaAcertos = 0;
+    anterior = document.querySelector("main");
+}
+function recomeçar()
+{
+    if(recomeça==="sim"||recomeça==="s"||recomeça==="Sim"||recomeça==="S")
+    {
+        reiniciarJogo();
+        executaJogo();
+    }        
+}
+executaJogo();
+

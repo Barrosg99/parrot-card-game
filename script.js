@@ -187,6 +187,8 @@ function reiniciarJogo() //reseta o html e as variáveis globais
     main.innerHTML = "";
     contaJogadas = 0;
     contaAcertos = 0;
+    n = 0;
+    tempo = 0;
     anterior = document.querySelector("main");
 }
 function recomeçar() //verifica a resposta do usuario e recomeça o jogo

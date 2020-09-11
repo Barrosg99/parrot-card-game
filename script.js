@@ -5,13 +5,15 @@ var main = document.querySelector("main");
 var cartaTras;
 var cartaFrente;
 var trancaMesa = true;
-function nDeCartas()
+var contaJogadas = 0;
+var contaAcertos = 0;
+function nDeCartas()        //função que pega o numero de cartas pelo prompt
 {
     while(n%2!=0 || n<4 || n>14)
         n = parseInt(prompt("Digite a quantidade de cartas:"));   
     return n;   
 }
-function montarJogo()
+function montarJogo()       //função que seta as divs "containers" pra carta-frente e carta-tras
 {
     var i = 0;
     var main = document.querySelector("main");
@@ -30,7 +32,7 @@ function montarJogo()
         i++; 
     }    
 }
-function DistribCartasTras()
+function DistribCartasTras()    //função que insere as divs com classe carta-tras e verso
 {
     var i=0;
     var novaDiv;
@@ -46,7 +48,7 @@ function DistribCartasTras()
         i++;
     }
 }
-function DistribCartasFrente()
+function DistribCartasFrente() //função que insere as divs com classe carta-frente e verso
 {
     var i=0;
     var novaDiv;
@@ -62,7 +64,7 @@ function DistribCartasFrente()
         i++;
     }
 }
-function viraCarta(elemento)
+function viraCarta(elemento)    //funçao que vira a carta clicada uma vez que a mesa n esteja "trancada"
 {
     if(trancaMesa)
     {
@@ -76,11 +78,11 @@ function viraCarta(elemento)
     }
         
 }
-function embaralha()
+function embaralha() //função pra embaralhar os arrays
 {
     return Math.random() - 0.5;
 }
-function papagaioAleatorio()
+function papagaioAleatorio() //função que seta uma array de papagaios aleatorios pra serem inseridos na DistribCartasFrente()
 {
     var i = 0;
     var String = ['bobrossparrot.gif','explodyparrot.gif','fiestaparrot.gif','metalparrot.gif','revertitparrot.gif','tripletsparrot.gif','unicornparrot.gif'];
@@ -98,7 +100,7 @@ function papagaioAleatorio()
     ale = concatenarArrays(tamanho,tamanho);
     ale = ale.sort(embaralha);
 }
-function concatenarArrays(lista1, lista2) {
+function concatenarArrays(lista1, lista2) { //função que junta 2 arrays, usada pra duplicar os papagaios na papagaioAleatorio()
     var i = 0;
     while (i<n/2)
     {
@@ -107,7 +109,7 @@ function concatenarArrays(lista1, lista2) {
     }
     return lista1;
   }
-function verificaCarta(elemento)
+function verificaCarta(elemento)    //função que verifica se a carta ja está virada, se virou um par certo e se virou um par errado
 {
     cartaTras = elemento.children[0];
     cartaFrente = elemento.children[1];
@@ -125,6 +127,8 @@ function verificaCarta(elemento)
             anterior.parentElement.removeAttribute("onclick");
             elemento.removeAttribute("onclick");
             anterior = document.querySelector("main");
+            contaAcertos++;
+            jogadas();
             return true;
         }
         else
@@ -141,11 +145,11 @@ function verificaCarta(elemento)
     {
         console.log("outros casos")
         anterior = cartaFrente;
+        jogadas();
         return true;
-    } 
-        
+    }         
 }
-function esperar1seg()
+function esperar1seg() //função que espera 1 seg pra desvirar as cartas 
 {
     cartaTras.classList.toggle("carta-tras-virada");
     cartaFrente.classList.toggle("carta-frente-virada");
@@ -155,9 +159,22 @@ function esperar1seg()
     anterior = document.querySelector("main");
     console.log("pera ae corno");
     trancaMesa = true;
+    jogadas();
 }
-nDeCartas();
-montarJogo();
-DistribCartasTras();
-papagaioAleatorio();
-DistribCartasFrente();
+function jogadas() //funçao que manda um alerta mostrando quantas jogadas foram
+{
+    contaJogadas++;
+    if(contaAcertos===n/2)
+    {
+        setTimeout(alerta,1000);
+    }
+}
+function alerta()   //alerta pra entrar no setTimeout da função jogadas()
+{
+    alert("Você ganhou em "+contaJogadas/2+" jogadas!");
+}
+nDeCartas(); //pega o numero de cartas
+montarJogo(); //seta a mesa pra inserir as cartas
+DistribCartasTras(); // insere as cartas de tras com papagaio.jpg
+papagaioAleatorio(); // cria a string com os papagaios de forma randômica
+DistribCartasFrente(); //insere a parte da frente da carta com os papagaios.gif

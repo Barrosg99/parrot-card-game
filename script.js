@@ -8,6 +8,8 @@ var trancaMesa = true;
 var contaJogadas = 0;
 var contaAcertos = 0;
 var recomeça = "sim";
+var tempo = 0;
+var relogio;
 function nDeCartas()        //função que pega o numero de cartas pelo prompt
 {
     while(n%2!=0 || n<4 || n>14)
@@ -166,32 +168,45 @@ function jogadas() //funçao que manda um alerta mostrando quantas jogadas foram
 }
 function alerta()   //alerta pra entrar no setTimeout da função jogadas()
 {
-    alert("Você ganhou em "+contaJogadas/2+" jogadas!");
+    alert("Você ganhou em "+contaJogadas/2+" jogadas!\nEm "+tempo+" segundos!");
+    clearInterval(relogio);
     recomeça = prompt("Você quer jogar novamente?");
     recomeçar();
 }
-function executaJogo()
+function executaJogo() //chama as funções principais
 {
     nDeCartas(); //pega o numero de cartas
+    relógio(); //relógio que imprime o tempo na tela
     montarJogo(); //seta a mesa pra inserir as cartas
     DistribCartasTras(); // insere as cartas de tras com papagaio.jpg
     papagaioAleatorio(); // cria a string com os papagaios de forma randômica
     DistribCartasFrente(); //insere a parte da frente da carta com os papagaios.gif
 }
-function reiniciarJogo()
+function reiniciarJogo() //reseta o html e as variáveis globais
 {
     main.innerHTML = "";
     contaJogadas = 0;
     contaAcertos = 0;
     anterior = document.querySelector("main");
 }
-function recomeçar()
+function recomeçar() //verifica a resposta do usuario e recomeça o jogo
 {
     if(recomeça==="sim"||recomeça==="s"||recomeça==="Sim"||recomeça==="S")
     {
         reiniciarJogo();
         executaJogo();
     }        
+}
+function relógio()
+{
+     relogio = setInterval(ponteiro,1000);
+    
+}
+function ponteiro()
+{
+    tempo++;
+    var divTempo = document.querySelector("time");
+    divTempo.innerText = "Tempo percorrido: "+tempo+"s";
 }
 executaJogo();
 

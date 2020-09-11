@@ -73,6 +73,12 @@ img
 {
     width: 110px;
 }
+time
+{
+    position: absolute;
+    top: 4%;
+    right: 4%;
+}
 @media (max-width: 1080px)
 {
     main
@@ -87,4 +93,14 @@ img
         width: 10%;
         max-width: 10%;
     }
+}
+@media (max-width:890px)
+{
+    time
+    {
+        top: 18%;
+        right: auto;
+        left: auto;
+    }
+    
 }

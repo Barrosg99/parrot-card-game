@@ -40,7 +40,6 @@ function DistribCartas() {
     while(i < n) {
         novaDivTras = document.createElement("div");
         novaDivTras.classList.add("verso");
-        novaDivTras.classList.add("carta-tras");
         novaDivTras.innerHTML = "<img src='imagens/front.png' alt='papagaio'></img>";
 
         novaDivFrente = document.createElement("div");

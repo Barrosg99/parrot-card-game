@@ -1,5 +1,5 @@
 var n=0;
-var ale = [];
+var aleatorio = [];
 var anterior = document.querySelector("main");
 var main = document.querySelector("main");
 var cartaTras;
@@ -7,24 +7,24 @@ var cartaFrente;
 var trancaMesa = true;
 var contaJogadas = 0;
 var contaAcertos = 0;
-var recomeça = "sim";
+var recomeça;
 var tempo = 0;
 var relogio;
 
 function nDeCartas() {     //função que pega o numero de cartas pelo prompt
-    while(n%2!=0 || n<4 || n>14)
+    while(n%2 != 0 || n < 4 || n > 14)
         n = parseInt(prompt("Digite a quantidade de cartas:"));   
     return n;   
 }
 
 function montarJogo() {      //função que seta as divs "containers" pra carta-frente e carta-tras
     var i = 0;
-    if(n>7)
+    if(n > 7)
         main.style.maxWidth = ("calc("+n/2+"*135px + 134px)");
     else
         main.style.width = ("96%");
     var novaDiv ;
-    while(i<n) {
+    while(i < n) {
         novaDiv = (document.createElement("div"));
         novaDiv.setAttribute("onclick", "viraCarta(this)");
         novaDiv.classList.add("carta");
@@ -33,32 +33,25 @@ function montarJogo() {      //função que seta as divs "containers" pra carta-
     }    
 }
 
-function DistribCartasTras() {
+function DistribCartas() {
     var i=0;
-    var novaDiv;
-    while(i<n) {
-        novaDiv = document.createElement("div");
-        var viraCarta = document.querySelector("main > div:nth-child("+(i+1)+")");
-        viraCarta.appendChild(novaDiv);
-        var div = document.querySelector(" main > div:nth-child("+(i+1)+") div:first-child ");
-        div.classList.add("verso");
-        div.classList.add("carta-tras");
-        div.innerHTML = "<img src='imagens/front.png' alt='papagaio'></img>";
-        i++;
-    }
-}
+    var novaDivTras;
+    var novaDivFrente;
+    while(i < n) {
+        novaDivTras = document.createElement("div");
+        novaDivTras.classList.add("verso");
+        novaDivTras.classList.add("carta-tras");
+        novaDivTras.innerHTML = "<img src='imagens/front.png' alt='papagaio'></img>";
 
-function DistribCartasFrente() { //função que insere as divs com classe carta-frente e verso
-    var i=0;
-    var novaDiv;
-    while(i<n) {
-        novaDiv = document.createElement("div");
+        novaDivFrente = document.createElement("div");
+        novaDivFrente.classList.add("verso");
+        novaDivFrente.classList.add("carta-frente");
+        novaDivFrente.innerHTML = `<img src='imagens/${aleatorio[i]}' alt='papagaio'></img>`;
+
+        
         var viraCarta = document.querySelector("main > div:nth-child("+(i+1)+")");
-        viraCarta.appendChild(novaDiv)
-        var div = document.querySelector(" main > div:nth-child("+(i+1)+") div:last-child ");
-        div.classList.add("verso");
-        div.classList.add("carta-frente");
-        div.innerHTML = `<img src='imagens/${ale[i]}' alt='papagaio'></img>`;
+        viraCarta.appendChild(novaDivTras);
+        viraCarta.appendChild(novaDivFrente);
         i++;
     }
 }
@@ -80,24 +73,24 @@ function embaralha() {  //função pra embaralhar os arrays
 
 function papagaioAleatorio() {  //função que seta uma array de papagaios aleatorios pra serem inseridos 
     var i = 0;                  //na DistribCartasFrente()
-    var String = ['bobrossparrot.gif','explodyparrot.gif','fiestaparrot.gif','metalparrot.gif','revertitparrot.gif','tripletsparrot.gif','unicornparrot.gif'];
+    var parrotArray = ['bobrossparrot.gif','explodyparrot.gif','fiestaparrot.gif','metalparrot.gif','revertitparrot.gif','tripletsparrot.gif','unicornparrot.gif'];
     
     var embaralhado = [];
     var tamanho = [];
     
-    embaralhado = String.sort(embaralha)
+    embaralhado = parrotArray.sort(embaralha)
     
-    while(i<n/2) {
+    while(i < n/2) {
         tamanho[i] = embaralhado[i];
         i++;
     }  
-    ale = concatenarArrays(tamanho,tamanho);
-    ale = ale.sort(embaralha);
+    aleatorio = concatenarArrays(tamanho,tamanho);
+    aleatorio = aleatorio.sort(embaralha);
 }
 
 function concatenarArrays(lista1, lista2) { //função que junta 2 arrays, usada pra duplicar os 
     var i = 0;                              //papagaios na papagaioAleatorio()
-    while (i<n/2) {
+    while (i < n/2) {
         lista1.push(lista2[i]);
         i++;
     }
@@ -111,8 +104,8 @@ function verificaCarta(elemento) { //função que verifica se a carta ja está v
         anterior = cartaFrente;
         return false;
     }
-    else if (anterior.innerHTML!==main.innerHTML) {
-        if(anterior.innerHTML===cartaFrente.innerHTML) {
+    else if (anterior.innerHTML !== main.innerHTML) {
+        if(anterior.innerHTML === cartaFrente.innerHTML) {
             anterior.parentElement.removeAttribute("onclick");
             elemento.removeAttribute("onclick");
             anterior = document.querySelector("main");
@@ -123,7 +116,7 @@ function verificaCarta(elemento) { //função que verifica se a carta ja está v
         else {
             cartaTras.classList.toggle("carta-tras-virada");
             cartaFrente.classList.toggle("carta-frente-virada");
-            setTimeout(esperar1seg, 1000);
+            setTimeout(waitTurn, 1000);
             trancaMesa = false;
             return false;
         }
@@ -135,7 +128,7 @@ function verificaCarta(elemento) { //função que verifica se a carta ja está v
     }         
 }
 
-function esperar1seg() { //função que espera 1 seg pra desvirar as cartas
+function waitTurn() { //função que espera 1 seg pra desvirar as cartas
     cartaTras.classList.toggle("carta-tras-virada");
     cartaFrente.classList.toggle("carta-frente-virada");
     var anteriorAtras = anterior.parentElement.children[0];
@@ -148,7 +141,7 @@ function esperar1seg() { //função que espera 1 seg pra desvirar as cartas
 
 function jogadas() {    //funçao que manda um alerta mostrando quantas jogadas foram
     contaJogadas++;
-    if(contaAcertos===n/2)
+    if(contaAcertos === n/2)
     {
         setTimeout(alerta,1000);
     }
@@ -168,9 +161,8 @@ function executaJogo() { //chama as funções principais
     nDeCartas(); //pega o numero de cartas
     relógio(); //relógio que imprime o tempo na tela
     montarJogo(); //seta a mesa pra inserir as cartas
-    DistribCartasTras(); // insere as cartas de tras com papagaio.jpg
     papagaioAleatorio(); // cria a string com os papagaios de forma randômica
-    DistribCartasFrente(); //insere a parte da frente da carta com os papagaios.gif
+    DistribCartas(); // insere as cartas na <main>   
 }
 
 function reiniciarJogo() { //reseta o html e as variáveis globais
@@ -183,10 +175,10 @@ function reiniciarJogo() { //reseta o html e as variáveis globais
 }
 
 function relógio() {
-    relogio = setInterval(ponteiro,1000);
+    relogio = setInterval(timer,1000);
 }
 
-function ponteiro() {
+function timer() {
     tempo++;
     var divTempo = document.querySelector("time");
     divTempo.innerText = "Tempo percorrido: "+tempo+"s";
